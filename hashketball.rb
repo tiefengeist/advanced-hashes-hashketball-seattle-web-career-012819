@@ -149,7 +149,7 @@ def player_numbers(team)
   numbers = []
   game_hash.each do |this_team, stats|
     if stats[:team_name] == team
-      stats[:players].each { |player| numbers << player[:number]}
+      stats[:players].each { |player| numbers << player.first[:number]}
     end
   end
   numbers
