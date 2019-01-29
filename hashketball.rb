@@ -118,8 +118,11 @@ def every_player
 end
 
 def one_player_stat(player, stat)
-  every_player[player][stat.to_sym]
+  every_player[player][stat] #Q: Why is this NilClass w/o to_sym?
 end
+
+#Q: Can write as[player][stat], then pass in as
+# one_player_stat('DeSagna Diop', :points), as well
 
 def num_points_scored(player)
   one_player_stat(player, 'points')
@@ -149,11 +152,15 @@ def player_numbers(team)
   numbers = []
   game_hash.each do |this_team, stats|
     if stats[:team_name] == team
-      stats[:players].each { |player| numbers << player.last[:number]}
+      stats[:players].each do |player, stats|
+        numbers << stats[:number]
+      end
     end
   end
   numbers
 end
+player_numbers("Brooklyn Nets")
+
 
 def player_stats(player)
   every_player[player]
